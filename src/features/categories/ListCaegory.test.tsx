@@ -1,7 +1,5 @@
 import { rest } from "msw";
 import { setupServer } from "msw/node";
-import { debug } from "util";
-
 import {
   fireEvent,
   renderWithProviders,
@@ -9,7 +7,7 @@ import {
   waitFor,
 } from "../../utils/test-utils";
 import { baseUrl } from "../api/apiSlice";
-import { categoryResponse, categoryResponsePage2 } from "../cast/mocks";
+import { categoryResponse, categoryResponsePage2 } from "../mocks";
 import { CategoryList } from "./ListCaegory";
 
 export const handlers = [

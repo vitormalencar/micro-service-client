@@ -4,7 +4,7 @@ export const baseUrl = "http://localhost:8000/api";
 
 export const apiSlice = createApi({
   reducerPath: "api",
-  tagTypes: ["Categories", "CastMembers"],
+  tagTypes: ["Categories", "CastMembers", "Genres"],
   endpoints: (builder) => ({}),
   baseQuery: fetchBaseQuery({ baseUrl }),
 });
