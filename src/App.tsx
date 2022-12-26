@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { CssBaseline, Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import { SnackbarProvider } from "notistack";
 import { Route, Routes } from "react-router-dom";
@@ -14,11 +14,15 @@ import { CategoryList } from "./features/categories/ListCaegory";
 import { GenreCreate } from "./features/genre/GenreCreate";
 import { GenreEdit } from "./features/genre/GenreEdit";
 import { GenreList } from "./features/genre/GenreList";
+import { VideosCreate } from "./features/videos/VideosCreate";
+import { VideosEdit } from "./features/videos/VideosEdit";
 import { VideosList } from "./features/videos/VideosList";
 
 function App() {
   return (
     <ThemeProvider theme={appTheme}>
+      <CssBaseline />
+
       <SnackbarProvider
         autoHideDuration={2000}
         maxSnack={3}
@@ -27,61 +31,41 @@ function App() {
           horizontal: "right",
         }}
       >
-        <Box
-          component="main"
-          sx={{
-            height: "100vh",
-            backgroundColor: (theme) => theme.palette.grey[900],
-          }}
-        >
-          <Header />
-          <Layout>
-            <Routes>
-              <Route path="/" element={<CategoryList />} />
-              {/* Category */}
-              <Route path="/categories" element={<CategoryList />} />
-              <Route path="/categories/create" element={<CategoryCreate />} />
-              <Route path="/categories/edit/:id" element={<CategoryEdit />} />
+        <Header />
+        <Layout>
+          <Routes>
+            <Route path="/" element={<CategoryList />} />
+            {/* Category */}
+            <Route path="/categories" element={<CategoryList />} />
+            <Route path="/categories/create" element={<CategoryCreate />} />
+            <Route path="/categories/edit/:id" element={<CategoryEdit />} />
 
-              {/* Cast members */}
-              <Route path="/cast-members" element={<ListCastmembers />} />
-              <Route
-                path="/cast-members/create"
-                element={<CreateCastMember />}
-              />
-              <Route
-                path="/cast-members/edit/:id"
-                element={<EditCastMember />}
-              />
+            {/* Cast members */}
+            <Route path="/cast-members" element={<ListCastmembers />} />
+            <Route path="/cast-members/create" element={<CreateCastMember />} />
+            <Route path="/cast-members/edit/:id" element={<EditCastMember />} />
 
-              {/* Genre */}
-              <Route path="/genres" element={<GenreList />} />
-              <Route path="/genres/create" element={<GenreCreate />} />
-              <Route path="/genres/edit/:id" element={<GenreEdit />} />
+            {/* Genre */}
+            <Route path="/genres" element={<GenreList />} />
+            <Route path="/genres/create" element={<GenreCreate />} />
+            <Route path="/genres/edit/:id" element={<GenreEdit />} />
 
-              {/* Videos */}
-              <Route path="/videos" element={<VideosList />} />
-              <Route
-                path="/videos/create"
-                element={<Typography>Video</Typography>}
-              />
-              <Route
-                path="/videos/edit/:id"
-                element={<Typography>Video</Typography>}
-              />
+            {/* Videos */}
+            <Route path="/videos" element={<VideosList />} />
+            <Route path="/videos/create" element={<VideosCreate />} />
+            <Route path="/videos/edit/:id" element={<VideosEdit />} />
 
-              <Route
-                path="*"
-                element={
-                  <Box sx={{ color: "white" }}>
-                    <Typography variant="h1">404</Typography>
-                    <Typography variant="h2">Page not found</Typography>
-                  </Box>
-                }
-              />
-            </Routes>
-          </Layout>
-        </Box>
+            <Route
+              path="*"
+              element={
+                <Box sx={{ color: "white" }}>
+                  <Typography variant="h1">404</Typography>
+                  <Typography variant="h2">Page not found</Typography>
+                </Box>
+              }
+            />
+          </Routes>
+        </Layout>
       </SnackbarProvider>
     </ThemeProvider>
   );
