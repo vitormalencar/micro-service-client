@@ -18,10 +18,10 @@ export interface Video {
   id: string;
   title: string;
   description: string;
-  year_launched: number;
+  year_launched: string;
   opened: boolean;
   rating: string;
-  duration: number;
+  duration: string;
   deleted_at?: string;
   created_at: string;
   updated_at: string;
@@ -56,4 +56,17 @@ export interface VideoParams {
   perPage?: number;
   search?: string;
   isActive?: boolean;
+}
+
+export interface VideoPayload {
+  id?: string;
+  title: string;
+  rating: string;
+  opened: boolean;
+  duration: string;
+  description: string;
+  genres_id?: string[];
+  year_launched: string;
+  categories_id?: string[];
+  cast_members_id?: string[];
 }
