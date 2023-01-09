@@ -1,10 +1,8 @@
-import { CssBaseline, Typography } from "@mui/material";
-import { Box, ThemeProvider } from "@mui/system";
-import { SnackbarProvider } from "notistack";
+import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { Route, Routes } from "react-router-dom";
-import { Header } from "./components/Header";
 import { Layout } from "./components/Layout";
-import { appTheme } from "./config/theme";
+
 import { CreateCastMember } from "./features/cast/CreateCastMembers";
 import { EditCastMember } from "./features/cast/EditCastMember";
 import { ListCastmembers } from "./features/cast/ListCastmembers";
@@ -18,56 +16,45 @@ import { VideosCreate } from "./features/videos/VideosCreate";
 import { VideosEdit } from "./features/videos/VideosEdit";
 import { VideosList } from "./features/videos/VideosList";
 
+import "./App.css";
+
 function App() {
   return (
-    <ThemeProvider theme={appTheme}>
-      <CssBaseline />
+    <Layout>
+      <Routes>
+        <Route path="/" element={<CategoryList />} />
 
-      <SnackbarProvider
-        autoHideDuration={2000}
-        maxSnack={3}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-      >
-        <Header />
-        <Layout>
-          <Routes>
-            <Route path="/" element={<CategoryList />} />
-            {/* Category */}
-            <Route path="/categories" element={<CategoryList />} />
-            <Route path="/categories/create" element={<CategoryCreate />} />
-            <Route path="/categories/edit/:id" element={<CategoryEdit />} />
+        {/* Category */}
+        <Route path="/categories" element={<CategoryList />} />
+        <Route path="/categories/create" element={<CategoryCreate />} />
+        <Route path="/categories/edit/:id" element={<CategoryEdit />} />
 
-            {/* Cast members */}
-            <Route path="/cast-members" element={<ListCastmembers />} />
-            <Route path="/cast-members/create" element={<CreateCastMember />} />
-            <Route path="/cast-members/edit/:id" element={<EditCastMember />} />
+        {/* Cast members */}
+        <Route path="/cast-members" element={<ListCastmembers />} />
+        <Route path="/cast-members/create" element={<CreateCastMember />} />
+        <Route path="/cast-members/edit/:id" element={<EditCastMember />} />
 
-            {/* Genre */}
-            <Route path="/genres" element={<GenreList />} />
-            <Route path="/genres/create" element={<GenreCreate />} />
-            <Route path="/genres/edit/:id" element={<GenreEdit />} />
+        {/* Genre */}
+        <Route path="/genres" element={<GenreList />} />
+        <Route path="/genres/create" element={<GenreCreate />} />
+        <Route path="/genres/edit/:id" element={<GenreEdit />} />
 
-            {/* Videos */}
-            <Route path="/videos" element={<VideosList />} />
-            <Route path="/videos/create" element={<VideosCreate />} />
-            <Route path="/videos/edit/:id" element={<VideosEdit />} />
+        {/* Videos */}
+        <Route path="/videos" element={<VideosList />} />
+        <Route path="/videos/create" element={<VideosCreate />} />
+        <Route path="/videos/edit/:id" element={<VideosEdit />} />
 
-            <Route
-              path="*"
-              element={
-                <Box sx={{ color: "white" }}>
-                  <Typography variant="h1">404</Typography>
-                  <Typography variant="h2">Page not found</Typography>
-                </Box>
-              }
-            />
-          </Routes>
-        </Layout>
-      </SnackbarProvider>
-    </ThemeProvider>
+        <Route
+          path="*"
+          element={
+            <Box sx={{ color: "white" }}>
+              <Typography variant="h1">404</Typography>
+              <Typography variant="h2">Page not found</Typography>
+            </Box>
+          }
+        />
+      </Routes>
+    </Layout>
   );
 }
 
