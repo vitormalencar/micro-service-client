@@ -9,6 +9,7 @@ import {
 import { Box } from "@mui/system";
 import { Link } from "react-router-dom";
 import { AutoCompleteFields } from "../../../components/AutoCompleteFields";
+import { InputFile } from "../../../components/InputFile";
 import { RatingsList } from "../../../components/RatingsList";
 import { CastMember } from "../../../types/CastMembers";
 import { Category } from "../../../types/Category";
@@ -24,6 +25,8 @@ type Props = {
   isLoading?: boolean;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleAddFile: (files: FileList | null) => void;
+  handleRemoveFile: (file: File) => void;
 };
 
 export function VideosForm({
@@ -35,6 +38,8 @@ export function VideosForm({
   isLoading = false,
   handleSubmit,
   handleChange,
+  handleAddFile,
+  handleRemoveFile,
 }: Props) {
   return (
     <Box p={2}>
@@ -112,18 +117,6 @@ export function VideosForm({
               >
                 <Grid item xs={5}>
                   <AutoCompleteFields
-                    name="categories"
-                    label="Categories"
-                    isLoading={isLoading}
-                    isDisabled={false}
-                    values={video.categories}
-                    options={categories}
-                    handleChange={handleChange}
-                  />
-                </Grid>
-
-                <Grid item xs={5}>
-                  <AutoCompleteFields
                     name="genres"
                     label="Genres"
                     isLoading={isLoading}
@@ -133,11 +126,23 @@ export function VideosForm({
                     handleChange={handleChange}
                   />
                 </Grid>
+
+                <Grid item xs={5}>
+                  <AutoCompleteFields
+                    name="categories"
+                    label="Categories"
+                    isLoading={isLoading}
+                    isDisabled={false}
+                    values={video.categories}
+                    options={categories}
+                    handleChange={handleChange}
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12} md={6} sx={{ "& .MuiTextField-root": { my: 2 } }}>
-            <FormControl>
+            <FormControl fullWidth>
               <FormLabel component="legend">Rating</FormLabel>
               <RadioGroup
                 row
@@ -147,6 +152,18 @@ export function VideosForm({
               >
                 <RatingsList isDisabled={isDisabled} />
               </RadioGroup>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <FormLabel component="legend">Thumb</FormLabel>
+              <InputFile onAdd={handleAddFile} onRemove={handleRemoveFile} />
+              <InputFile onAdd={handleAddFile} onRemove={handleRemoveFile} />
+            </FormControl>
+
+            <FormControl fullWidth>
+              <FormLabel component="legend">Videos</FormLabel>
+              <InputFile onAdd={handleAddFile} onRemove={handleRemoveFile} />
+              <InputFile onAdd={handleAddFile} onRemove={handleRemoveFile} />
             </FormControl>
           </Grid>
         </Grid>

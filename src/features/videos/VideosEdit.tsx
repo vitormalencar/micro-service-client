@@ -2,27 +2,30 @@ import { Box, Paper, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useUniqueCategories } from "../../hooks/useUniqueCategories";
 import { Video } from "../../types/Videos";
 import { VideosForm } from "./components/VideosForm";
 import { mapVideoToForm } from "./util";
 import {
-  useGetVideoQuery,
   initialState,
-  useUpdateVideoMutation,
-  useGetAllCategoriesQuery,
-  useGetAllGenresQuery,
   useGetAllCastMembersQuery,
+  useGetAllGenresQuery,
+  useGetVideoQuery,
+  useUpdateVideoMutation,
 } from "./VideoSlice";
 
 export function VideosEdit() {
   const id = useParams<{ id: string }>().id as string;
   const { enqueueSnackbar } = useSnackbar();
-  const { data: video, isFetching } = useGetVideoQuery({ id });
-  const [videoState, setVideoState] = useState<Video>(initialState);
-  const [updateVideo, status] = useUpdateVideoMutation();
-  const { data: categories } = useGetAllCategoriesQuery();
   const { data: genres } = useGetAllGenresQuery();
   const { data: castMembers } = useGetAllCastMembersQuery();
+  const { data: video, isFetching } = useGetVideoQuery({ id });
+  const [updateVideo, status] = useUpdateVideoMutation();
+  const [videoState, setVideoState] = useState<Video>(initialState);
+  const [categories, setCategories] = useUniqueCategories(
+    videoState,
+    setVideoState
+  );
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -37,8 +40,9 @@ export function VideosEdit() {
   useEffect(() => {
     if (video) {
       setVideoState(video.data);
+      setCategories(video.data.categories || []);
     }
-  }, [video]);
+  }, [video, setCategories]);
 
   useEffect(() => {
     if (status.isSuccess) {
@@ -65,7 +69,7 @@ export function VideosEdit() {
           isDisabled={isFetching}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
-          categories={categories?.data}
+          categories={categories}
           genres={genres?.data}
           castMembers={castMembers?.data}
         />
