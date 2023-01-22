@@ -52,6 +52,9 @@ export function RatingsList({ isDisabled }: { isDisabled?: boolean }) {
           labelPlacement={rating.labelPlacement}
           disabled={isDisabled}
           sx={{
+            "& .MuiFormControlLabel-label": {
+              mt: 2,
+            },
             ...(index === 0 && { ml: 0 }),
             ...(index === ratings.length - 1 && { mr: 0 }),
           }}
