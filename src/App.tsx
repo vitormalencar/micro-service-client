@@ -6,21 +6,30 @@ import { Layout } from "./components/Layout";
 import { CreateCastMember } from "./features/cast/CreateCastMembers";
 import { EditCastMember } from "./features/cast/EditCastMember";
 import { ListCastmembers } from "./features/cast/ListCastmembers";
+
 import { CategoryCreate } from "./features/categories/CreateCategory";
 import { CategoryEdit } from "./features/categories/EditCategory";
 import { CategoryList } from "./features/categories/ListCaegory";
+
 import { GenreCreate } from "./features/genre/GenreCreate";
 import { GenreEdit } from "./features/genre/GenreEdit";
 import { GenreList } from "./features/genre/GenreList";
+import { UploadList } from "./features/uploads/UploadList";
+
 import { VideosCreate } from "./features/videos/VideosCreate";
 import { VideosEdit } from "./features/videos/VideosEdit";
 import { VideosList } from "./features/videos/VideosList";
 
-import "./App.css";
-
 function App() {
   return (
     <Layout>
+      <UploadList
+        uploads={[
+          { name: "upload 1", progress: 10 },
+          { name: "upload 2", progress: 20 },
+          { name: "upload 3", progress: 30 },
+        ]}
+      />
       <Routes>
         <Route path="/" element={<CategoryList />} />
 
