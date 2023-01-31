@@ -14,7 +14,7 @@ import { RatingsList } from "../../../components/RatingsList";
 import { CastMember } from "../../../types/CastMembers";
 import { Category } from "../../../types/Category";
 import { Genre } from "../../../types/Genres";
-import { Video } from "../../../types/Videos";
+import { FileObject, Video } from "../../../types/Videos";
 
 type Props = {
   video: Video;
@@ -25,8 +25,8 @@ type Props = {
   isLoading?: boolean;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleAddFile: (files: FileList | null) => void;
-  handleRemoveFile: (file: File) => void;
+  handleAddFile: ({ name, file }: FileObject) => void;
+  handleRemoveFile: (name: string) => void;
 };
 
 export function VideosForm({
@@ -41,6 +41,38 @@ export function VideosForm({
   handleAddFile,
   handleRemoveFile,
 }: Props) {
+  const handleAddThumbnail = (file: File) => {
+    handleAddFile({ name: "thumb_file", file });
+  };
+
+  const handleRemoveThumbnail = () => {
+    handleRemoveFile("thumb_file");
+  };
+
+  const handleAddBanner = (file: File) => {
+    handleAddFile({ name: "banner_file", file });
+  };
+
+  const handleAddTrailer = (file: File) => {
+    handleAddFile({ name: "trailer_file", file });
+  };
+
+  const handleAddVideo = (file: File) => {
+    handleAddFile({ name: "video_file", file });
+  };
+
+  const handleRemoveBanner = () => {
+    handleRemoveFile("banner_file");
+  };
+
+  const handleRemoveTrailer = () => {
+    handleRemoveFile("trailer_file");
+  };
+
+  const handleRemoveVideo = () => {
+    handleRemoveFile("video_file");
+  };
+
   return (
     <Box p={2}>
       <form onSubmit={handleSubmit}>
@@ -155,15 +187,26 @@ export function VideosForm({
             </FormControl>
 
             <FormControl fullWidth>
-              <FormLabel component="legend">Thumb</FormLabel>
-              <InputFile onAdd={handleAddFile} onRemove={handleRemoveFile} />
-              <InputFile onAdd={handleAddFile} onRemove={handleRemoveFile} />
+              <FormLabel component="legend">Thumbnail</FormLabel>
+              <InputFile
+                onAdd={handleAddThumbnail}
+                onRemove={handleRemoveThumbnail}
+              />
+              <FormLabel component="legend">Banner</FormLabel>
+              <InputFile
+                onAdd={handleAddBanner}
+                onRemove={handleRemoveBanner}
+              />
             </FormControl>
 
             <FormControl fullWidth>
               <FormLabel component="legend">Videos</FormLabel>
-              <InputFile onAdd={handleAddFile} onRemove={handleRemoveFile} />
-              <InputFile onAdd={handleAddFile} onRemove={handleRemoveFile} />
+              <InputFile onAdd={handleAddVideo} onRemove={handleRemoveVideo} />
+              <FormLabel component="legend">Trailer</FormLabel>
+              <InputFile
+                onAdd={handleAddTrailer}
+                onRemove={handleRemoveTrailer}
+              />
             </FormControl>
           </Grid>
         </Grid>
