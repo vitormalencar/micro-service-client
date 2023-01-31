@@ -4,17 +4,21 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FileIcon from "@mui/icons-material/FileCopy";
 
 interface Props {
-  onAdd: (files: FileList | null) => void;
+  onAdd: (files: File) => void;
   onRemove: (file: File) => void;
 }
 
 export const InputFile: React.FC<Props> = ({ onAdd, onRemove }: Props) => {
-  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [selectedFiles, setSelectedFiles] = useState<File>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFiles(event.target.files);
-    onAdd(event.target.files);
+    const file = event.target.files?.item(0);
+    // log file type
+    console.log(file?.type);
+    if (!file) return;
+    setSelectedFiles(file);
+    onAdd(file);
   };
 
   const handleFileInput = () => {
@@ -22,9 +26,9 @@ export const InputFile: React.FC<Props> = ({ onAdd, onRemove }: Props) => {
   };
 
   const handleClear = () => {
-    setSelectedFiles(null);
+    setSelectedFiles(undefined);
     if (selectedFiles) {
-      onRemove(selectedFiles[0]);
+      onRemove(selectedFiles);
     }
   };
 
@@ -33,10 +37,10 @@ export const InputFile: React.FC<Props> = ({ onAdd, onRemove }: Props) => {
       <TextField
         type="text"
         placeholder="Select a file"
-        value={selectedFiles?.length ? selectedFiles[0].name : ""}
+        value={selectedFiles?.name || ""}
         InputProps={{
           readOnly: true,
-          endAdornment: selectedFiles?.length ? (
+          endAdornment: selectedFiles ? (
             <IconButton onClick={handleClear}>
               <DeleteIcon />
             </IconButton>
@@ -52,6 +56,7 @@ export const InputFile: React.FC<Props> = ({ onAdd, onRemove }: Props) => {
         type="file"
         id="inputFile"
         ref={fileInputRef}
+        multiple={false}
         onChange={handleChange}
         style={{ display: "none" }}
       />
