@@ -14,8 +14,6 @@ export const InputFile: React.FC<Props> = ({ onAdd, onRemove }: Props) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.item(0);
-    // log file type
-    console.log(file?.type);
     if (!file) return;
     setSelectedFiles(file);
     onAdd(file);
