@@ -175,7 +175,9 @@ export function VideosForm({
           </Grid>
           <Grid item xs={12} md={6} sx={{ "& .MuiTextField-root": { my: 2 } }}>
             <FormControl fullWidth>
-              <FormLabel component="legend">Rating</FormLabel>
+              <Box mt={2} mb={2}>
+                <FormLabel component="legend">Rating</FormLabel>
+              </Box>
               <RadioGroup
                 row
                 name="rating"
@@ -187,25 +189,28 @@ export function VideosForm({
             </FormControl>
 
             <FormControl fullWidth>
-              <FormLabel component="legend">Thumbnail</FormLabel>
               <InputFile
                 onAdd={handleAddThumbnail}
                 onRemove={handleRemoveThumbnail}
+                placeholder="Thumbnail"
               />
-              <FormLabel component="legend">Banner</FormLabel>
               <InputFile
                 onAdd={handleAddBanner}
                 onRemove={handleRemoveBanner}
+                placeholder="Banner"
               />
             </FormControl>
 
             <FormControl fullWidth>
-              <FormLabel component="legend">Videos</FormLabel>
-              <InputFile onAdd={handleAddVideo} onRemove={handleRemoveVideo} />
-              <FormLabel component="legend">Trailer</FormLabel>
+              <InputFile
+                onAdd={handleAddVideo}
+                onRemove={handleRemoveVideo}
+                placeholder="Video"
+              />
               <InputFile
                 onAdd={handleAddTrailer}
                 onRemove={handleRemoveTrailer}
+                placeholder="Trailer"
               />
             </FormControl>
           </Grid>
