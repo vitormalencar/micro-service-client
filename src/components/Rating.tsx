@@ -29,7 +29,7 @@ export const Rating: React.FC<RatingProps> = (props) => {
         alignItems: "center",
       }}
     >
-      <Typography>{props.rating}</Typography>
+      <Typography color="white">{props.rating}</Typography>
     </Box>
   );
 };
