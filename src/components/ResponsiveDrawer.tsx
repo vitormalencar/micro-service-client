@@ -76,7 +76,11 @@ export default function ResponsiveDrawer({ open, onClose }: Props) {
         open
         sx={{
           display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: drawerWidth,
+            backgroundColor: "background.default",
+          },
         }}
       >
         {drawer}
