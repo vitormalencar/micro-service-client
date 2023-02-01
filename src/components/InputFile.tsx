@@ -6,9 +6,14 @@ import FileIcon from "@mui/icons-material/FileCopy";
 interface Props {
   onAdd: (files: File) => void;
   onRemove: (file: File) => void;
+  placeholder?: string;
 }
 
-export const InputFile: React.FC<Props> = ({ onAdd, onRemove }: Props) => {
+export const InputFile: React.FC<Props> = ({
+  onAdd,
+  onRemove,
+  placeholder,
+}: Props) => {
   const [selectedFiles, setSelectedFiles] = useState<File>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -34,7 +39,7 @@ export const InputFile: React.FC<Props> = ({ onAdd, onRemove }: Props) => {
     <>
       <TextField
         type="text"
-        placeholder="Select a file"
+        placeholder={placeholder || "Select a file"}
         value={selectedFiles?.name || ""}
         InputProps={{
           readOnly: true,
